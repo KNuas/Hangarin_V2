@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Task, SubTask, Note, Category
 from .forms import TaskForm, SubTaskForm, NoteForm, CategoryForm
 
 
+@login_required
 def dashboard(request):
     sort = request.GET.get('sort')
 
@@ -32,6 +34,7 @@ def dashboard(request):
     return render(request, 'tasks/dashboard.html', context)
 
 
+@login_required
 def task_list(request):
     sort = request.GET.get('sort')
 
@@ -56,11 +59,10 @@ def task_list(request):
     elif sort == "optional":
         tasks = tasks.filter(priority__name="Optional")
 
-    context = {'tasks': tasks}
-
-    return render(request, 'tasks/task_list.html', context)
+    return render(request, 'tasks/task_list.html', {'tasks': tasks})
 
 
+@login_required
 def task_detail(request, pk):
     task = get_object_or_404(Task, pk=pk)
     subtasks = SubTask.objects.filter(parent_task=task)
@@ -73,6 +75,7 @@ def task_detail(request, pk):
     })
 
 
+@login_required
 def task_create(request):
     form = TaskForm(request.POST or None)
 
@@ -86,6 +89,7 @@ def task_create(request):
     })
 
 
+@login_required
 def task_update(request, pk):
     task = get_object_or_404(Task, pk=pk)
     form = TaskForm(request.POST or None, instance=task)
@@ -100,6 +104,7 @@ def task_update(request, pk):
     })
 
 
+@login_required
 def task_delete(request, pk):
     task = get_object_or_404(Task, pk=pk)
 
@@ -112,6 +117,7 @@ def task_delete(request, pk):
     })
 
 
+@login_required
 def mark_task_completed(request, pk):
     task = get_object_or_404(Task, pk=pk)
     task.status = "Completed"
@@ -119,8 +125,7 @@ def mark_task_completed(request, pk):
     return redirect('task_list')
 
 
-# ===================== SUBTASK =====================
-
+@login_required
 def subtask_list(request):
     search = request.GET.get('search')
     status = request.GET.get('status')
@@ -148,6 +153,7 @@ def subtask_list(request):
     })
 
 
+@login_required
 def subtask_create(request):
     form = SubTaskForm(request.POST or None)
 
@@ -161,6 +167,7 @@ def subtask_create(request):
     })
 
 
+@login_required
 def subtask_update(request, pk):
     subtask = get_object_or_404(SubTask, pk=pk)
     form = SubTaskForm(request.POST or None, instance=subtask)
@@ -175,6 +182,7 @@ def subtask_update(request, pk):
     })
 
 
+@login_required
 def subtask_delete(request, pk):
     subtask = get_object_or_404(SubTask, pk=pk)
 
@@ -187,8 +195,7 @@ def subtask_delete(request, pk):
     })
 
 
-# ===================== NOTES =====================
-
+@login_required
 def note_list(request):
     search = request.GET.get('search')
     created_at = request.GET.get('created_at')
@@ -214,6 +221,7 @@ def note_list(request):
     })
 
 
+@login_required
 def note_create(request):
     form = NoteForm(request.POST or None)
 
@@ -227,6 +235,7 @@ def note_create(request):
     })
 
 
+@login_required
 def note_update(request, pk):
     note = get_object_or_404(Note, pk=pk)
     form = NoteForm(request.POST or None, instance=note)
@@ -241,6 +250,7 @@ def note_update(request, pk):
     })
 
 
+@login_required
 def note_delete(request, pk):
     note = get_object_or_404(Note, pk=pk)
 
@@ -253,8 +263,7 @@ def note_delete(request, pk):
     })
 
 
-# ===================== CATEGORY =====================
-
+@login_required
 def category_list(request):
     search = request.GET.get('search')
     sort = request.GET.get('sort')
@@ -274,6 +283,7 @@ def category_list(request):
     })
 
 
+@login_required
 def category_create(request):
     form = CategoryForm(request.POST or None)
 
@@ -287,6 +297,7 @@ def category_create(request):
     })
 
 
+@login_required
 def category_update(request, pk):
     category = get_object_or_404(Category, pk=pk)
     form = CategoryForm(request.POST or None, instance=category)
@@ -301,6 +312,7 @@ def category_update(request, pk):
     })
 
 
+@login_required
 def category_delete(request, pk):
     category = get_object_or_404(Category, pk=pk)
 

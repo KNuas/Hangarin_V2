@@ -131,6 +131,7 @@
                 <a href="{% url 'note_list' %}" class="nav-link {% if '/notes/' in request.path %}active{% endif %}">Notes</a>
                 <a href="{% url 'category_list' %}" class="nav-link {% if '/categories/' in request.path %}active{% endif %}">Categories</a>
                 <a href="/admin/" class="nav-link">Admin</a>
+                <a href="{% url 'account_logout' %}" class="nav-link">Logout</a>
             </nav>
         </div>
 
