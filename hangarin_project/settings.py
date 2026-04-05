@@ -155,9 +155,9 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # Redirects
+LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
-ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 # Allows logout without POST
 ACCOUNT_LOGOUT_ON_GET = True
