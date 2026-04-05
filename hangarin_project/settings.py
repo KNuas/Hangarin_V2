@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-=p_n43d%ys68e-46d3hu0d*zfk-#8-dovj2=gme#+9&+0la^!@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['karl0975.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
@@ -167,3 +167,6 @@ ACCOUNT_LOGIN_METHODS = {'username', 'email'}
 
 # Signup fields
 ACCOUNT_SIGNUP_FIELDS = ['username*', 'email*', 'password1*', 'password2*']
+
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
