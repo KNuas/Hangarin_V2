@@ -4,13 +4,14 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
         <h1 class="page-title">Categories</h1>
-        <p class="page-subtitle">Organize tasks using categories.</p>
+        <p class="page-subtitle">Manage your categories.</p>
     </div>
+    <a href="{% url 'category_create' %}" class="btn btn-primary">+ Add Category</a>
 </div>
 
-<div class="card content-card p-3 mb-4">
+<div class="content-card p-3 mb-4">
     <form method="GET" class="row g-3">
-        <div class="col-md-9">
+        <div class="col-md-8">
             <input
                 type="text"
                 name="search"
@@ -20,28 +21,40 @@
             >
         </div>
 
-        <div class="col-md-3">
-            <button class="btn btn-primary w-100">Search</button>
+        <div class="col-md-2">
+            <select name="sort" class="form-select">
+                <option value="">A-Z</option>
+                <option value="name_desc" {% if request.GET.sort == "name_desc" %}selected{% endif %}>Z-A</option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <button class="btn btn-primary w-100">Apply</button>
         </div>
     </form>
 </div>
 
-<div class="card content-card p-4">
+<div class="content-card p-4">
     <div class="table-responsive">
         <table class="table table-hover align-middle">
             <thead>
                 <tr>
-                    <th>Category Name</th>
+                    <th>Name</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                {% for category in categories %}
+                {% for cat in categories %}
                 <tr>
-                    <td>{{ category.name }}</td>
+                    <td>{{ cat.name }}</td>
+                    <td class="action-buttons">
+                        <a href="{% url 'category_update' cat.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'category_delete' cat.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td>No categories found.</td>
+                    <td colspan="2">No categories found.</td>
                 </tr>
                 {% endfor %}
             </tbody>

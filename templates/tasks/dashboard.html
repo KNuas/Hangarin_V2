@@ -1,99 +1,67 @@
 {% extends 'tasks/base.html' %}
 
 {% block content %}
-<div class="mb-4">
-    <h1 class="page-title">Hangarin Dashboard</h1>
-    <p class="page-subtitle">Track goals, manage tasks, and stay productive every day.</p>
-</div>
+<h1 class="page-title">Hangarin Dashboard</h1>
+<p class="page-subtitle">Track goals, manage tasks, and stay productive every day.</p>
 
-<div class="row g-4 mb-4">
+<div class="row mb-4">
     <div class="col-md-3">
         <div class="stat-card stat-total">
             <h2>{{ total_tasks }}</h2>
-            <p class="mb-0">Total Tasks</p>
+            <p>Total Tasks</p>
         </div>
     </div>
     <div class="col-md-3">
         <div class="stat-card stat-pending">
             <h2>{{ pending_tasks }}</h2>
-            <p class="mb-0">Pending</p>
+            <p>Pending</p>
         </div>
     </div>
     <div class="col-md-3">
         <div class="stat-card stat-progress">
             <h2>{{ in_progress_tasks }}</h2>
-            <p class="mb-0">In Progress</p>
+            <p>In Progress</p>
         </div>
     </div>
     <div class="col-md-3">
         <div class="stat-card stat-completed">
             <h2>{{ completed_tasks }}</h2>
-            <p class="mb-0">Completed</p>
+            <p>Completed</p>
         </div>
     </div>
 </div>
 
-<div class="card content-card p-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="mb-0">Recent Tasks</h3>
+<div class="content-card p-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h4>Recent Tasks</h4>
         <a href="{% url 'task_list' %}" class="btn btn-primary">View All Tasks</a>
     </div>
 
-    <div class="table-responsive">
-        <table class="table table-hover align-middle">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Status</th>
-                    <th>Priority</th>
-                    <th>Deadline</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for task in tasks %}
-                <tr>
-                    <td>{{ task.title }}</td>
-
-                    <td>
-                        {% if task.status == "Pending" %}
-                            <span class="badge rounded-pill badge-soft-pending">Pending</span>
-                        {% elif task.status == "In Progress" %}
-                            <span class="badge rounded-pill badge-soft-progress">In Progress</span>
-                        {% else %}
-                            <span class="badge rounded-pill badge-soft-completed">Completed</span>
-                        {% endif %}
-                    </td>
-
-                    <td>
-                        {% if task.priority.name == "High" %}
-                            <span class="badge bg-danger">High</span>
-                        {% elif task.priority.name == "Medium" %}
-                            <span class="badge bg-warning text-dark">Medium</span>
-                        {% elif task.priority.name == "Low" %}
-                            <span class="badge bg-success">Low</span>
-                        {% elif task.priority.name == "Critical" %}
-                            <span class="badge bg-dark">Critical</span>
-                        {% else %}
-                            <span class="badge bg-secondary">{{ task.priority }}</span>
-                        {% endif %}
-                    </td>
-
-                    <td>{{ task.deadline }}</td>
-
-                    <td class="action-buttons">
-                        <a href="{% url 'task_detail' task.pk %}" class="btn btn-sm btn-primary">View</a>
-                        <a href="{% url 'task_update' task.pk %}" class="btn btn-sm btn-secondary">Edit</a>
-                        <a href="{% url 'task_delete' task.pk %}" class="btn btn-sm btn-danger">Delete</a>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5">No tasks found.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Deadline</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.title }}</td>
+                <td>
+                    {% if task.status == "Pending" %}
+                        <span class="badge badge-soft-pending">Pending</span>
+                    {% elif task.status == "In Progress" %}
+                        <span class="badge badge-soft-progress">In Progress</span>
+                    {% else %}
+                        <span class="badge badge-soft-completed">Completed</span>
+                    {% endif %}
+                </td>
+                <td>{{ task.deadline }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

@@ -17,5 +17,13 @@ urlpatterns = [
     path('subtasks/<int:pk>/delete/', views.subtask_delete, name='subtask_delete'),
 
     path('notes/', views.note_list, name='note_list'),
+    path('notes/add/', views.note_create, name='note_create'),
+    path('notes/<int:pk>/edit/', views.note_update, name='note_update'),
+    path('notes/<int:pk>/delete/', views.note_delete, name='note_delete'),
+
     path('categories/', views.category_list, name='category_list'),
+    
+    path('categories/add/', views.category_create, name='category_create'),
+    path('categories/<int:pk>/edit/', views.category_update, name='category_update'),
+    path('categories/<int:pk>/delete/', views.category_delete, name='category_delete'),
 ]

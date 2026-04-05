@@ -1,0 +1,22 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<div class="mb-4">
+    <h1 class="page-title">{{ title }}</h1>
+    <p class="page-subtitle">Fill in the category details below.</p>
+</div>
+
+<div class="card content-card p-4">
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label">Category Name</label>
+            {{ form.name }}
+        </div>
+
+        <button type="submit" class="btn btn-success">Save</button>
+        <a href="{% url 'category_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

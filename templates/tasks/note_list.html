@@ -6,11 +6,12 @@
         <h1 class="page-title">Notes</h1>
         <p class="page-subtitle">Browse and filter task notes.</p>
     </div>
+    <a href="{% url 'note_create' %}" class="btn btn-primary">+ Add Note</a>
 </div>
 
-<div class="card content-card p-3 mb-4">
+<div class="content-card p-3 mb-4">
     <form method="GET" class="row g-3">
-        <div class="col-md-5">
+        <div class="col-md-4">
             <input
                 type="text"
                 name="search"
@@ -20,7 +21,7 @@
             >
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <input
                 type="date"
                 name="created_at"
@@ -30,31 +31,44 @@
         </div>
 
         <div class="col-md-3">
-            <button class="btn btn-primary w-100">Apply Filters</button>
+            <select name="sort" class="form-select">
+                <option value="">Newest First</option>
+                <option value="date" {% if request.GET.sort == "date" %}selected{% endif %}>Date Added</option>
+                <option value="task" {% if request.GET.sort == "task" %}selected{% endif %}>Task Name</option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <button class="btn btn-primary w-100">Apply</button>
         </div>
     </form>
 </div>
 
-<div class="card content-card p-4">
+<div class="content-card p-4">
     <div class="table-responsive">
         <table class="table table-hover align-middle">
             <thead>
                 <tr>
-                    <th>Task</th>
                     <th>Content</th>
-                    <th>Created</th>
+                    <th>Task</th>
+                    <th>Date</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for note in notes %}
                 <tr>
-                    <td>{{ note.task }}</td>
                     <td>{{ note.content }}</td>
+                    <td>{{ note.task }}</td>
                     <td>{{ note.created_at }}</td>
+                    <td class="action-buttons">
+                        <a href="{% url 'note_update' note.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'note_delete' note.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="3">No notes found.</td>
+                    <td colspan="4">No notes found.</td>
                 </tr>
                 {% endfor %}
             </tbody>

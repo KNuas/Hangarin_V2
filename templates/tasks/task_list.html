@@ -9,7 +9,30 @@
     <a href="{% url 'task_create' %}" class="btn btn-primary">+ Add Task</a>
 </div>
 
-<div class="card content-card p-4">
+<div class="content-card p-3 mb-4">
+    <form method="GET" class="row g-3">
+        <div class="col-md-9">
+            <select name="sort" class="form-select">
+                <option value="">Default</option>
+                <option value="date" {% if request.GET.sort == "date" %}selected{% endif %}>Date Added</option>
+                <option value="title" {% if request.GET.sort == "title" %}selected{% endif %}>Title</option>
+                <option value="status" {% if request.GET.sort == "status" %}selected{% endif %}>Status</option>
+                <option value="priority" {% if request.GET.sort == "priority" %}selected{% endif %}>Priority (A-Z)</option>
+                <option value="high" {% if request.GET.sort == "high" %}selected{% endif %}>High</option>
+                <option value="medium" {% if request.GET.sort == "medium" %}selected{% endif %}>Medium</option>
+                <option value="low" {% if request.GET.sort == "low" %}selected{% endif %}>Low</option>
+                <option value="critical" {% if request.GET.sort == "critical" %}selected{% endif %}>Critical</option>
+                <option value="optional" {% if request.GET.sort == "optional" %}selected{% endif %}>Optional</option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <button class="btn btn-primary w-100">Apply</button>
+        </div>
+    </form>
+</div>
+
+<div class="content-card p-4">
     <div class="table-responsive">
         <table class="table table-hover align-middle">
             <thead>
