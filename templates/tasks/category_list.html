@@ -1,0 +1,51 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="page-title">Categories</h1>
+        <p class="page-subtitle">Organize tasks using categories.</p>
+    </div>
+</div>
+
+<div class="card content-card p-3 mb-4">
+    <form method="GET" class="row g-3">
+        <div class="col-md-9">
+            <input
+                type="text"
+                name="search"
+                class="form-control"
+                placeholder="Search categories..."
+                value="{{ request.GET.search }}"
+            >
+        </div>
+
+        <div class="col-md-3">
+            <button class="btn btn-primary w-100">Search</button>
+        </div>
+    </form>
+</div>
+
+<div class="card content-card p-4">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Category Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categories %}
+                <tr>
+                    <td>{{ category.name }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No categories found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="page-title">Notes</h1>
+        <p class="page-subtitle">Browse and filter task notes.</p>
+    </div>
+</div>
+
+<div class="card content-card p-3 mb-4">
+    <form method="GET" class="row g-3">
+        <div class="col-md-5">
+            <input
+                type="text"
+                name="search"
+                class="form-control"
+                placeholder="Search notes..."
+                value="{{ request.GET.search }}"
+            >
+        </div>
+
+        <div class="col-md-4">
+            <input
+                type="date"
+                name="created_at"
+                class="form-control"
+                value="{{ request.GET.created_at }}"
+            >
+        </div>
+
+        <div class="col-md-3">
+            <button class="btn btn-primary w-100">Apply Filters</button>
+        </div>
+    </form>
+</div>
+
+<div class="card content-card p-4">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Content</th>
+                    <th>Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for note in notes %}
+                <tr>
+                    <td>{{ note.task }}</td>
+                    <td>{{ note.content }}</td>
+                    <td>{{ note.created_at }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">No notes found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
