@@ -2,9 +2,12 @@ from faker import Faker
 import random
 from tasks.models import Task, SubTask, Category, Priority, Note
 from django.utils import timezone
+import os
+import django
 
 fake = Faker()
-
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hangarin_project.settings')
+django.setup()
 
 def run():
    
